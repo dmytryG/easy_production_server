@@ -54,3 +54,35 @@ response
   "message": "Invalid credentials"
 }
 ```
+----
+Post /list (creates new empty list)
+
+request body
+
+```json
+{
+  "listName": "String"
+}
+```
+request headers
+
+```json
+{
+"Authorization": "JWT Token"
+}
+```
+response
+```json
+{
+  "data": {
+    "listName": "Тяги бархатные",
+    "creator": "64502c5a045a8ce5719d10c0",
+    "_id": "645031154daf3a4c4d876298",
+    "items": [],
+    "created": "2023-05-01T21:37:25.009Z",
+    "__v": 0
+  },
+  "is_err": false,
+  "message": "Created successfully"
+}
+```

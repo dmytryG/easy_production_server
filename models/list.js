@@ -12,7 +12,7 @@ const listSchema = new Schema({
     },
     items: {
         type: [Item.schema],
-        required: true
+        required: false
     },
     created: {
         type: Date,
