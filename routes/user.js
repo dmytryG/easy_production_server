@@ -7,7 +7,10 @@ var express = require("express"),
     } = require("../controllers/auth.controller.js"),
     {
         new_list
-    } = require("../controllers/list.controller");
+    } = require("../controllers/list.controller"),
+    {
+        add_item
+    } = require("../controllers/item.controller");
 
 router.post("/register", signup, function (req, res) {
 
@@ -19,6 +22,10 @@ router.post("/login", signin, function (req, res) {
 
 router.post("/list", verifyToken, async function(req, res) {
     await new_list(req, res);
+});
+
+router.post("/item", verifyToken, async function(req, res) {
+    await add_item(req, res);
 });
 
 module.exports = router;
