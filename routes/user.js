@@ -8,7 +8,8 @@ var express = require("express"),
     {
         new_list,
         get_list,
-        delete_list
+        delete_list,
+        update_list
     } = require("../controllers/list.controller"),
     {
         add_item
@@ -32,6 +33,10 @@ router.get("/list/:id", verifyToken, async function(req, res) {
 
 router.delete("/list/:id", verifyToken, async function(req, res) {
     await delete_list(req, res);
+});
+
+router.patch("/list/:id", verifyToken, async function(req, res) {
+    await update_list(req, res);
 });
 
 router.post("/item", verifyToken, async function(req, res) {

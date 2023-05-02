@@ -190,3 +190,30 @@ response
   "message": null
 }
 ```
+---
+PATCH /list/{id} (updates a list)
+
+request headers
+
+```json
+{
+"Authorization": "JWT Token"
+}
+```
+Body (fields are optional)
+```json
+    "listName": "String",
+    "items": [
+      {"itemName": "Wah?"}, 
+      {"itemName": "Не хочется ругаться, не хочется бранится", 
+      "value": true}
+    ]
+```
+response
+```json
+{
+  "data": "Ok",
+  "is_err": false,
+  "message": null
+}
+```
