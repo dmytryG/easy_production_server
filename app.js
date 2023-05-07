@@ -3,6 +3,7 @@ const express = require("express"),
     app = express(),
     mongoose = require("mongoose"),
     userRoutes = require("./routes/user");
+const cors = require('cors');
 
 //Connect to database
 try {
@@ -18,17 +19,18 @@ process.on('unhandledRejection', error => {
     console.log('unhandledRejection', error.message);
 });
 
+app.use(cors());
 // parse requests of content-type - application/json
 app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
+
 app.use(express.urlencoded({
     extended: true
 }));
-
 //using user route
 app.use(userRoutes);
 
-//setup server to listen on port 8080
-app.listen(process.env.PORT || 8080, () => {
-    console.log("Server is live on port 8080");
+const port = process.env.PORT || 8080
+app.listen(port, () => {
+    console.log(`Server is live on port ${port}`);
 })

@@ -22,7 +22,6 @@ exports.add_item = async (req, res) => {
             );
             return;
         }
-        console.log(`Updating ${list}`)
         list.items.push(new Item({
             itemName: req.body.itemName,
             type: req.body.type,
