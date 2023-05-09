@@ -3,7 +3,7 @@ var bcrypt = require("bcrypt");
 var User = require("../models/user");
 const {ApiResponse} = require("../models/ApiResponse");
 
-exports.signup = async (req, res) => {
+async function signup(req, res) {
     const user = new User({
         fullName: req.body.fullName,
         email: req.body.email,
@@ -11,17 +11,25 @@ exports.signup = async (req, res) => {
     });
 
     try {
-        await user.save();
-        res.status(200)
-        res.send(new ApiResponse("Successfully created"));
+        let db_user = await User.findOne({
+            email: req.body.email
+        }).exec();
+        if (!db_user) {
+            await user.save();
+            await signin(req, res);
+        } else {
+            res.status(500)
+            res.send(new ApiResponse("Already registered", true));
+        }
     } catch (err) {
         res.status(500)
         res.send(new ApiResponse(err, true));
         return;
     }
-};
+}
 
-exports.signin = async (req, res) => {
+async function signin(req, res) {
+    console.log(`Logging in ${req.body}`)
     try {
         let user = await User.findOne({
             email: req.body.email
@@ -67,3 +75,6 @@ exports.signin = async (req, res) => {
         return;
     }
 };
+
+exports.signup = signup;
+exports.signin = signin;
