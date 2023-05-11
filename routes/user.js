@@ -8,6 +8,7 @@ var express = require("express"),
     {
         new_list,
         get_list,
+        get_list_all,
         delete_list,
         update_list
     } = require("../controllers/list.controller"),
@@ -25,6 +26,10 @@ router.post("/login", signin, function (req, res) {
 
 router.post("/list", verifyToken, async function(req, res) {
     await new_list(req, res);
+});
+
+router.get("/list/all", verifyToken, async function(req, res) {
+    await get_list_all(req, res);
 });
 
 router.get("/list/:id", verifyToken, async function(req, res) {

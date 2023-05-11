@@ -48,6 +48,29 @@ exports.get_list = async (req, res) => {
     }
 }
 
+exports.get_list_all = async (req, res) => {
+    if (!req.user) {
+        await res.status(403);
+        await res.send (
+            new ApiResponse("Unauthorized", true)
+        );
+        return;
+    }
+    try {
+        let list = await List.find({});
+        if (!list) {
+            res.status(404);
+            await res.send(new ApiResponse("Not found", true))
+        } else {
+            res.status(200);
+            await res.send(new ApiResponse(list, false))
+        }
+    } catch (err) {
+        res.status(500);
+        await res.send(new ApiResponse("Something went wrong", true))
+    }
+}
+
 exports.delete_list = async (req, res) => {
     if (!req.user) {
         await res.status(403);
